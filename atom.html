@@ -1,0 +1,92 @@
+            font-size: 2em; cursor: pointer;
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        :root { --main-color: #007bff; --ghost-color: #bdc3c7; }
+        
+        body {
+            transition: border 0.5s;
+            border: 20px dashed var(--ghost-color);
+            min-height: 80vh; margin: 40px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            background: #f9f9f9;
+            animation: border-breath 4s infinite ease-in-out;
+        }
+
+        /* Заголовок "Атом сенсу" як стабільне поле */
+        h1 { color: #7f8c8d; font-family: sans-serif; letter-spacing: 2px; margin-bottom: 20px; }
+
+        .term {
+            font-size: 2em; cursor: pointer;
+            color: var(--ghost-color);
+            padding: 10px; border-bottom: 3px dashed var(--ghost-color);
+            transition: all 0.3s ease;
+        }
+
+        .term:hover {
+            color: var(--main-color);
+            border-bottom: 3px solid var(--main-color);
+        }
+
+        .excited-term {
+            font-size: 7em !important;
+            color: var(--main-color) !important;
+            border-bottom: none !important;
+            text-shadow: 0 0 30px var(--main-color);
+        }
+
+        .body-excited { 
+            border-style: solid !important;
+            border-color: var(--main-color) !important; 
+        }
+
+        #popup {
+            margin-top: 40px; padding: 20px;
+            background: white; border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            display: none; border-left: 6px solid var(--main-color);
+        }
+
+        @keyframes border-breath {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Атом сенсу!</h1>
+    <span class="term" id="nucleus">КЕП</span>
+    
+    <div id="popup">
+        <h3>КЕП</h3>
+        <p><strong>Суть:</strong> Кваліфікований електронний підпис.</p>
+        <p><strong>Зв'язки:</strong> ➔ Дія ➔ ФОП ➔ Банк</p>
+    </div>
+
+    <script>
+        const nucleus = document.getElementById('nucleus');
+        const body = document.body;
+        const popup = document.getElementById('popup');
+
+        nucleus.addEventListener('click', () => {
+            nucleus.classList.add('excited-term');
+            body.classList.add('body-excited');
+            
+            setTimeout(() => {
+                nucleus.style.display = 'none';
+                popup.style.display = 'block';
+            }, 500);
+
+            setTimeout(() => {
+                nucleus.style.display = 'inline';
+                nucleus.classList.remove('excited-term');
+                body.classList.remove('body-excited');
+                popup.style.display = 'none';
+                body.style.borderStyle = 'dashed'; 
+            }, 5500);
+        });
+    </script>
+</body>
+</html>
