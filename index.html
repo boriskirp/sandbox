@@ -283,6 +283,20 @@ const speechParagraphs = document.querySelectorAll('.speech-paragraph');
 const startBtn = document.getElementById('start-speech-btn');
 let currentParagraphIndex = 0;
 let isPlaying = false;
+let ukrainianVoice = null;
+
+// Функція для пошуку найкращого українського голосу в системі
+function loadVoices() {
+    const voices = window.speechSynthesis.getVoices();
+    // Шукаємо голос, який точно містить маркер української мови uk-UA чи uk
+    ukrainianVoice = voices.find(voice => voice.lang.startsWith('uk'));
+}
+
+// Завантажуємо голоси (в деяких браузерах вони завантажуються асинхронно)
+loadVoices();
+if (window.speechSynthesis.onvoiceschanged !== undefined) {
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+}
 
 function speakParagraph(index) {
     if (index >= speechParagraphs.length) {
@@ -300,10 +314,21 @@ function speakParagraph(index) {
     activeParagraph.classList.add('active-speak');
     activeParagraph.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-    // Очищаємо текст від внутрішнього html-сміття для чіткої вимови
-    const rawText = activeParagraph.textContent.replace(/[^a-zA-Zа-яА-ЯіІїЇєЄґҐ0-9\s.,!?:-]/g, "");
+    // Очищаємо текст від символів та HTML-сміття для чистої вимови
+    const rawText = activeParagraph.textContent
+        .replace(/[^a-zA-Zа-яА-ЯіІїЇєЄґҐ0-9\s.,!?:-]/g, "")
+        .trim();
+
     const utterance = new SpeechSynthesisUtterance(rawText);
-    utterance.lang = 'uk-UA';
+    
+    // Якщо знайшли рідний український голос в системі — примусово ставимо його
+    if (ukrainianVoice) {
+        utterance.voice = ukrainianVoice;
+    } else {
+        // Fallback налаштування мови
+        utterance.lang = 'uk-UA';
+    }
+    
     utterance.rate = 1.0;
     utterance.pitch = 1.0;
 
