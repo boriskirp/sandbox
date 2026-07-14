@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гід по КЕП: Дистанційне отримання</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #27ae60;
+            --bg: #f4f7f6;
+            --sidebar-width: 260px;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            display: flex;
+            background-color: var(--bg);
+        }
+
+        /* Лівий Сайдбар */
+        #sidebar {
+            width: var(--sidebar-width);
+            background: var(--primary);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        #sidebar h3 {
+            border-bottom: 1px solid #455a64;
+            padding-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        #sidebar nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        #sidebar nav ul li {
+            margin: 15px 0;
+        }
+
+        #sidebar nav ul li a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 0.95em;
+        }
+
+        #sidebar nav ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        /* Основний контент */
+        main {
+            margin-left: var(--sidebar-width);
+            padding: 40px;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        h1, h2 { color: var(--primary); }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .free { background: #e8f5e9; color: #2e7d32; }
+        .paid { background: #fff3e0; color: #ef6c00; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        table th { background: #f8f9fa; }
+
+        .note {
+            border-left: 4px solid #f1c40f;
+            background: #fef9e7;
+            padding: 15px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+<aside id="sidebar">
+    <h3>📂 Гід по КЕП: 🛠 "Я усвідомлюю свої дії: Посміхнітьс і досліджуйте далі"</h3>
+    <nav>
+        <ul>
+            <li><a href="#about">1. Що таке КЕП</a></li>
+            <li><a href="#scenarios">2. Сценарії отримання</a></li>
+            <li><a href="#docs">3. Необхідні документи</a></li>
+            <li><a href="#storage">4. Де зберігати ключ</a></li>
+            <li><a href="#usage">5. Як користуватися</a></li>
+            <li><a href="#check">6. Перевірка статусу</a></li>
+        </ul>
+    </nav>
+</aside>
+
+<main>
+    <h1>Кваліфікований Електронний Підпис (КЕП),🛠 "Я усвідомлюю свою дію! Посміхніться і досліджуйте далі" </h1>
+    <p>Інструкція для отримання доступу до держпослуг та грантів без поїздки за 50 км.</p>
+
+    <section id="about" class="card">
+        <h2>1. Для чого він потрібен?</h2>
+        <ul>
+            <li><strong>Електронний кабінет платника:</strong> перевірка боргів та стану "сплячого" підприємства.</li>
+            <li><strong>USFplatform:</strong> підписання грантових заявок.</li>
+            <li><strong>Банкінг:</strong> відкриття рахунків онлайн.</li>
+        </ul>
+    </section>
+
+    <section id="scenarios" class="card">
+        <h2>2. Сценарії (Шлях отримання)</h2>
+        
+        <div class="status-badge free">Варіант №1: Приват24 (Якщо є картка фізособи)</div>
+        <p>Найшвидший шлях. Ви отримуєте КЕП фізособи, який дозволяє зайти в кабінет директора, якщо дані про вас є в реєстрі (ЄДР).</p>
+        
+        <div class="status-badge paid">Варіант №2: АЦСК "Україна" / "Вчасно"</div>
+        <p>Якщо банківського рахунку немає. Вимагає онлайн-ідентифікації (через веб-камеру або завантаження документів).</p>
+
+        <table>
+            <tr>
+                <th>Характеристика</th>
+                <th>З рахунком</th>
+                <th>Без рахунку</th>
+            </tr>
+            <tr>
+                <td>Спосіб</td>
+                <td>Приват24 Бізнес</td>
+                <td>АЦСК (онлайн)</td>
+            </tr>
+            <tr>
+                <td>Вартість</td>
+                <td>0 грн</td>
+                <td>~200-400 грн</td>
+            </tr>
+            <tr>
+                <td>Час</td>
+                <td>5 хвилин</td>
+                <td>1-2 робочі дні</td>
+            </tr>
+        </table>
+    </section>
+
+    <section id="docs" class="card">
+        <h2>3. Які документи підготувати?</h2>
+        <div class="note">
+            <strong>Важливо:</strong> Оскільки підприємство вже в реєстрі, більшість даних підтягнуться автоматично за кодом ЄДРПОУ.
+        </div>
+        <ul>
+            <li><strong>ІПН:</strong> Оригінал або скан.</li>
+            <li><strong>Паспорт:</strong> Дані мають збігатися з реєстраційними.</li>
+            <li><strong>Наказ:</strong> Сканована копія наказу про призначення директора (може знадобитися для завантаження).</li>
+        </ul>
+    </section>
+
+    <section id="storage" class="card">
+        <h2>4. Формат ключа</h2>
+        <p>Для роботи на ПК найкраще обирати <strong>Файловий носій</strong>:</p>
+        <ul>
+            <li>Файл з розширенням <code>.jks</code> або <code>.p12</code>.</li>
+            <li>Пароль до ключа (мінімум 8 символів). Не втрачайте його — він не відновлюється!</li>
+        </ul>
+    </section>
+
+    <section id="usage" class="card">
+        <h2>5. Як користуватися?</h2>
+        <ol>
+            <li>Зайдіть на сайт (напр. <a href="https://cabinet.tax.gov.ua/" target="_blank">Кабінет ДПС</a>).</li>
+            <li>Оберіть "Вхід" -> "Файловий носій".</li>
+            <li>Оберіть АЦСК (хто видав ключ, напр. "ПриватБанк").</li>
+            <li>Завантажте файл ключа та введіть пароль.</li>
+        </ol>
+    </section>
+
+    <section id="check" class="card">
+        <h2>6. Перевірка статусу КЕП</h2>
+        <p>Перевірити, чи працює ваш ключ, можна на державному порталі:</p>
+        <button onclick="window.open('https://czo.gov.ua/verify', '_blank')" style="padding: 10px 20px; cursor: pointer; background: var(--accent); color: white; border: none; border-radius: 5px;">Перевірити ключ на ЦЗО</button>
+    </section>
+</main>
+
+</body>
+</html>
