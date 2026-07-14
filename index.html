@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Інженерна База Знань: Когнітивна Активація</title>
+    <style>
+        :root {
+            --primary-green: #72b22a; 
+            --basic-bg: #f8f9fa;
+            --pro-bg: #fffcf0;
+            --accent-yellow: #ffe600;
+        }
+
+        body { font-family: 'Segoe UI', Roboto, sans-serif; display: flex; margin: 0; height: 100vh; background: #fff; }
+
+        /* ОСНОВНИЙ КОНТЕНТ */
+        #main-content { flex: 1; padding: 60px; overflow-y: auto; }
+        .roadmap-text { max-width: 800px; font-size: 1.1em; line-height: 1.8; color: #222; }
+        b { color: var(--primary-green); cursor: help; border-bottom: 1px dashed var(--primary-green); }
+
+        /* САЙДБАР */
+        #sidebar { width: 320px; background: #f4f4f4; border-left: 1px solid #ddd; padding: 25px; display: flex; flex-direction: column; }
+        .sidebar-header { font-size: 0.8em; font-weight: bold; color: #888; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 1px; }
+        .step-group { margin-bottom: 25px; }
+        .step-title { font-size: 0.9em; font-weight: bold; color: #444; margin-bottom: 10px; display: flex; align-items: center; }
+        .step-title i { margin-right: 8px; font-style: normal; }
+        .nav-item { padding: 12px; background: white; margin-bottom: 8px; border-radius: 8px; cursor: pointer; font-size: 0.9em; border: 1px solid transparent; transition: 0.2s; }
+        .nav-item:hover { border-color: var(--primary-green); transform: translateX(5px); }
+        .nav-item.active { background: var(--accent-yellow) !important; font-weight: bold; border-color: #d4c100; }
+
+        /* ПОПАП */
+        #kb-popup {
+            position: absolute; display: none; width: 340px; background: white; 
+            border-radius: 15px; box-shadow: 0 15px 40px rgba(0,0,0,0.2); 
+            z-index: 1000; overflow: hidden; border: 1px solid #eee;
+            animation: fadeIn 0.2s ease-out;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .popup-header { padding: 15px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+        .stage-badge { font-size: 0.65em; background: #eee; padding: 3px 8px; border-radius: 10px; text-transform: uppercase; color: #666; }
+        .popup-body { padding: 20px; font-size: 0.95em; color: #444; }
+        .pro-box { background: var(--pro-bg); padding: 15px; border-top: 1px solid #f9eebc; text-align: center; }
+        .btn-privat { 
+            display: inline-block; background: var(--primary-green); color: white; 
+            text-decoration: none; padding: 10px 20px; border-radius: 8px; 
+            font-weight: bold; margin-top: 10px; font-size: 0.9em;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="main-content">
+     <div id="breadcrumb-bar" style="background: #fff; padding: 10px 20px; border-bottom: 2px solid var(--primary-green); position: sticky; top: 0; z-index: 999; display: flex; align-items: center; gap: 10px;">
+    <span style="font-size: 0.8em; color: #888; font-weight: bold;">ШЛЯХ ДОСЛІДЖЕННЯ:</span>
+    <div id="path-display" style="font-size: 0.9em; color: #333;">Почніть виділяти терміни...</div>
+</div>
+
+<div id="system-alert" style="display:none; background: #fff3cd; border: 2px solid #ffeeba; padding: 20px; border-radius: 8px; margin-top: 20px;">
+    <p id="alert-message">Ви заглибилися в тему. Можливо, час перевірити відповідність структури?</p>
+    <button onclick="window.open('https://www.facebook.com/groups/137607950103368', '_blank')">Запитати спільноту</button>
+</div>
+    <div class="roadmap-text">
+        <h4>🛠 "Я усвідомлюю свою дію! Посміхніться і досліджуйте далі"</h4>
+        <p style="font-size: 1.1em; color: #444; font-weight: 500; border-left: 4px solid var(--primary-green); padding-left: 15px; margin: 25px 0;">
+        Ми віримо: <strong>інженерна якість закладена в кожній людині від народження.</strong> <br>
+        Це природне прагнення впорядковувати хаос, створювати інструменти та знаходити рішення. Наша методологія лише активує цей вроджений дар.
+        </p>
+        <h1>Шлях Інженера: Від Ідеї до Результату</h1>
+        <p style="font-size: 0.9em; color: #666; margin-top: -20px; font-style: italic;"> Єдина методологія, яка активує особисте через очевидні об'єктивні сенси!</p>
+        <p><b>Дісклеймер</b>! Ваш професійний розвиток починається, коли ви проходите перший етап — <b>реєстрація фоп</b>. Це вимагає точності, особливо коли ви обираєте свій <b>квед</b>, що визначає межі вашої діяльності.</p>
+        
+        <p>У процесі роботи ключовим фактором стає <b>аналітика</b> ваших витрат та часу. Щоб кожна дія була легітимною, важливо вчасно готувати професійні <b>форми документів</b>, які захищають ваші інтереси перед замовником.</p>
+        
+        <p>Фінальний етап кожного циклу — це успішне <b>подання звітності</b>. Використовуючи сучасні інструменти, такі як ші (<b>штучний інтелект</b>), ви перетворюєте рутину на автоматизований процес.</p>
+    </div>
+    <div class="business-module" style="border: 2px solid var(--primary-green); padding: 20px; border-radius: 8px; margin-top: 30px;">
+    <h3>🚀 Архітектор масштабування</h3>
+    
+    <details>
+        <summary style="cursor: pointer; font-weight: bold;">📋 КВІЗ: Діагностика вашої бізнес-системи</summary>
+        <p>Пройдіть тест, щоб визначити "вузькі місця" вашого офлайн-бізнесу.</p>
+        <button onclick="startQuiz()">Розпочати аудит</button>
+    </details>
+
+    <details style="margin-top: 10px;">
+        <summary style="cursor: pointer; font-weight: bold;">⚙️ Інструкція: Шлях замовлення</summary>
+        <ol>
+            <li>Оплатити розбір (500 грн).</li>
+            <li>Зробити скріншот оплати.</li>
+            <li>Надіслати у Messenger або на пошту.</li>
+            <li>Отримати доступ до закритої групи.</li>
+        </ol>
+        <a href="https://www.privat24.ua/send/jc1y8" class="btn-pay">Оплатити аудит</a>
+    </details>
+</div>
+
+    <div>
+        <footer style="margin-top: 50px; padding-top: 20px; border-top: 1px solid #eee; font-size: 0.8em; color: #999;">
+        © 2026 Всі права захищені. Авторська методологія Пупченка Б.П. Версія методології: v.1.0;
+    </footer>
+    </div>
+</div>
+
+<div id="sidebar">
+    <div class="sidebar-header">Дорожня Карта</div>
+    
+    <div class="step-group">
+        <div class="step-title"><i>01</i> СТАРТ</div>
+        <div class="nav-item" onclick="triggerKB('дисклеймер')">Дисклеймер!</div>
+        <div class="nav-item" onclick="triggerKB('реєстрація фоп')">Реєстрація ФОП</div>
+        <div class="nav-item" onclick="triggerKB('квед')">КВЕД</div>
+    </div>
+
+    <div class="step-group">
+        <div class="step-title"><i>02</i> ПРОЦЕС</div>
+        <div class="nav-item" onclick="triggerKB('аналітика')">Аналітика</div>
+        <div class="nav-item" onclick="triggerKB('форми документів')">Форми документів</div>
+    </div>
+
+    <div class="step-group">
+        <div class="step-title"><i>03</i> РЕЗУЛЬТАТ</div>
+        <div class="nav-item" onclick="triggerKB('подання звітності')">Подання звітності</div>
+        <div class="nav-item" onclick="triggerKB('штучний інтелект')">Штучний інтелект</div>
+    </div>
+
+</div>
+
+<div id="kb-popup"></div>
+
+<script>
+
+const db = {
+    "дисклеймер": {stage: "Старт", type: "pro", text: "<strong>Відмова від відповідальності:</strong> Цей матеріал є інтелектуальною власністю Пупченка Б.П. та відображає його особистий досвід. Інформація надається виключно з метою ознайомлення і не є офіційною юридичною чи професійною консультацією. Автор не гарантує актуальність даних на момент прочитання та не несе відповідальності за будь-які збитки або наслідки, що виникли в результаті використання цих матеріалів. Користувач бере на себе повну відповідальність за свої дії.<br><br> ⚠️ <strong> Попередження: Спочатку навчіться, а вже потім застосовуйте!</strong>" },
+    "реєстрація фоп": { stage: "Старт", type: "pro", text: "Алгоритм реєстрації через Дія. Поради щодо вибору групи оподаткування для інженерів." },
+    "квед": { stage: "Старт", type: "basic", text: "КВЕД 71.12 — основний код для інженерної діяльності в Україні." },
+    "аналітика": { stage: "Процес", type: "basic", text: "Методи збору даних для оптимізації робочого часу та фінансів." },
+    "форми документів": { stage: "Процес", type: "pro", text: "Готові шаблони договорів та актів, перевірені на практиці." },
+    "подання звітності": { stage: "Результат", type: "pro", text: "Інструкція з подання звіту ЄСВ та Єдиного податку без черг." },
+    "штучний інтелект": { stage: "Інструменти", type: "basic", text: "Штучний інтелект (AI) для автоматизації технічної документації.Тема= Текст + Обсяг." }
+};
+
+const popup = document.getElementById('kb-popup');
+// --- ГЛОБАЛЬНІ ЗМІННІ (розмістіть їх одразу після const popup = ...) ---
+let userPath = [];
+let clickCount = 0;
+const privatLink = "https://www.privat24.ua/send/jc1y8"; // Визначили змінну, щоб не було помилки
+
+// 1. Функція для кліку по сайдбару
+function triggerKB(term) {
+    const navItems = Array.from(document.querySelectorAll('.nav-item'));
+    const navItem = navItems.find(el => el.textContent.toLowerCase().includes(term.toLowerCase()));
+    
+    let x, y;
+    if (navItem) {
+        const rect = navItem.getBoundingClientRect();
+        x = rect.left - 350; // Попап зліва від сайдбару
+        y = rect.top + window.scrollY;
+    } else {
+        x = 100; y = 100;
+    }
+    
+    showPopup(term, x, y);
+}
+
+// 2. Головна функція показу попапа
+function showPopup(term, x, y) {
+    const data = db[term.toLowerCase()];
+    if (!data) return;
+
+    let content = `
+        <div class="popup-header">
+            <strong>${term.toUpperCase()}</strong>
+            <span class="stage-badge">${data.stage}</span>
+        </div>
+        <div class="popup-body">${data.text}</div>
+    `;
+
+    if (data.type === 'pro') {
+        content += `
+            <div class="pro-box">
+                <div style="font-size:0.8em; color:#666; margin-bottom:8px;">Ви вже фахівці коли організовуєте структуру інформації!</div>
+                <a href="${privatLink}" target="_blank" class="btn-privat">☕ Підтримати (Приват24)</a>
+            </div>
+        `;
+    }
+   
+    // Додаємо в існуючий скрипт
+    let userPath = [];
+    let clickCount = 0;
+
+    function updatePath(term) {
+        // Унікальний шлях
+        if (!userPath.includes(term)) {
+            userPath.push(term);
+        }
+        document.getElementById('path-display').innerText = userPath.join(' → ');
+
+        // Лічильник "застрягання"
+        clickCount++;
+        if (clickCount >= 4) {
+            const alertBox = document.getElementById('system-alert');
+            alertBox.style.display = 'block';
+            alertBox.scrollIntoView({ behavior: 'smooth' });
+        }
+        updatePath(term);
+    }
+
+
+    popup.innerHTML = content;
+    popup.style.display = 'block';
+    
+    // Позиціонування
+    let posX = x + 15;
+    let posY = y + 15;
+    if (posX + 340 > window.innerWidth) posX = x - 350;
+    popup.style.left = posX + 'px';
+    popup.style.top = posY + 'px';
+
+    // Підсвітка сайдбару (з ігноруванням знаку !)
+    document.querySelectorAll('.nav-item').forEach(el => {
+        const cleanText = el.textContent.toLowerCase().replace('!', '');
+        el.classList.toggle('active', cleanText === term.toLowerCase());
+    });
+}
+
+// 3. Закриття
+function closePopup() {
+    popup.style.display = 'none';
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+}
+
+// 4. Обробники подій (миші)
+document.addEventListener('mousedown', (e) => {
+    // Якщо клік всередині попапа або по кнопці сайдбару - не закриваємо
+    if (popup.contains(e.target) || e.target.closest('.nav-item')) return;
+    
+    const sel = window.getSelection().toString().trim().toLowerCase();
+    if (!db[sel]) {
+        closePopup();
+    }
+});
+
+document.addEventListener('mouseup', (e) => {
+    if (popup.contains(e.target) || e.target.closest('.nav-item')) return;
+    
+    const sel = window.getSelection().toString().trim().toLowerCase();
+    if (db[sel]) {
+        showPopup(sel, e.pageX, e.pageY);
+    }
+});
+</script>
+
+</body>
+</html>
