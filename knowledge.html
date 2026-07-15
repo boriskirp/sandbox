@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оркестратор POC: Портал Знань</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        #sidebar-framework {
+            position: fixed;
+            left: 20px;
+            top: 80px;
+            width: 220px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-left: 4px solid #007bff;
+        }
+
+        @keyframes pulse {
+            0% { background-color: rgba(255, 230, 0, 0.1); }
+            50% { background-color: rgba(255, 230, 0, 0.3); }
+            100% { background-color: rgba(255, 230, 0, 0.1); }
+        }
+
+        .term-node {
+            animation: pulse 3s infinite ease-in-out;
+            border-radius: 4px;
+        }
+
+        .framework-category {
+            margin-bottom: 20px;
+        }
+
+        .category-title {
+            font-weight: bold;
+            font-size: 0.9em;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .category-item {
+            padding: 5px 0;
+            font-size: 0.95em;
+            color: #2c3e50;
+            cursor: pointer;
+            transition: color 0.2s, transform 0.3s;
+        }
+
+        .category-item:hover {
+            color: #007bff;
+            text-decoration: underline;
+        }
+
+        .active-node {
+            box-shadow: 0 0 15px rgba(0, 123, 255, 0.8), 0 0 25px rgba(0, 123, 255, 0.5);
+            transition: box-shadow 0.3s ease-out;
+            background-color: rgba(0, 123, 255, 0.2);
+        }
+
+        #editor-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        #editor {
+            min-height: 400px;
+            border: 1px solid #e0e0e0;
+            padding: 15px;
+            font-size: 1.1em;
+            line-height: 1.6;
+            outline: none;
+            cursor: text;
+        }
+
+        #editor:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+        }
+
+        #popup {
+            position: fixed;
+            background-color: #ffffff;
+            border: 1px solid #dcdcdc;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            display: none;
+            max-width: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 0.95em;
+            color: #555;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .popup-action-button {
+            display: block;
+            padding: 8px 12px;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            color: #333;
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+            text-align: left;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .popup-action-button:hover {
+            background-color: #e2f0ff;
+            border-color: #007bff;
+            color: #007bff;
+        }
+
+        .category-item.active {
+            background-color: #ffe600;
+            font-weight: bold;
+            border-radius: 4px;
+            transition: 0.3s;
+            transform: translateX(5px);
+        }
+    </style>
+</head>
+<body>
+    <h1>Де гроші? Соціальний ліфт з інженерним підходом. Оркестратор POC: Ваш Портал Знань</h1>
+
+    <h2>Відкриття легальної діяльності регулюється державою, зверху!</h2>
+
+    <div id="editor-container">
+        <div id="editor" contenteditable="true">
+            <p>Вітаємо на Порталі Знань! Виділіть будь-яке слово, щоб активувати контекстний Оркестратор.</p>
+            
+            <h3>🚀 Цикл Податкового Регулювання (Створення, Діяльність, Відповідальність):</h3>
+            <p>
+                Для старту бізнесу потрібна **Реєстрація ФОП** або **Реєстрація ТОВ**. Обов'язково отримайте **КЕП(Електронний Підпис)** та відкрийте **Банківський Рахунок**, а також зробіть **Вибір Системи** оподаткування і **КВЕД** діяльності.
+            </p>
+            <p>
+                У процесі работы слідкуйте за **Податковий Календар** та вчасно здійснюйте **Подання Звітності**. Ведіть **Форми Документів** і, якщо потрібно, використовуйте **РРО/ПРРО**.
+            </p>
+            <p>
+                Ваші **Права Платника** включають **Податкова Консультація** та **Оскарження Рішень**. Пам'ятайте про **Обов'язки Платника**: **Сплата Податків** і **Допуск до Перевірок**.
+            </p>
+            <p>
+                Невиконання обов'язків веде до **Несплата Штрафи** або **Неподання Звіту**. У крайніх випадках можлива **Кримінальна відповідальність** за **Ухилення Від Сплати**.
+            </p>
+
+            <h3>💰 Види Податків (Тестова Мапа):</h3>
+            <p>
+                **Прямі податки**: **ПДФО** (для громадян), **Податок на Прибуток** (для компаній), **ЄСВ** (соц. внесок) та **Податок на Нерухомість**. Найпопулярніший спецрежим — **Єдиний Податок**.
+            </p>
+            <p>
+                **Непрямі податки (споживання)**: **ПДВ** (на товари/послуги), **Акцизний Податок** (на окремі групи товарів) та **Митні Платежі** (на кордоні).
+            </p>
+            
+            <h3>⚙️ Оригінальні Інструменти (для тесту):</h3>
+            <p>
+                Спробуйте також виділити слова: **маркетинг**, **аналітика**, **SEO**, **картинка**, **відео**, **курс долара** або **час**.
+            </p>
+        </div>
+
+        <div id="sidebar-framework">
+            <div id="sidebar-info" style="margin-bottom: 20px; min-height: 50px; font-size: 12px; color: #7f8c8d; text-align: center;">Клікніть на елемент для швидкого пошуку</div>
+                
+            <div class="framework-category">
+                <div class="category-title">🚀 Блок: Старт</div>
+                <div class="category-item" onclick="triggerOrchestrator('Я усвідомлюю дію', 'Реєстрація ФОП')">"Я усвідомлюю дію" Реєстрація ФОП</div>
+                <div class="category-item" onclick="triggerOrchestrator('Я усвідомлюю дію','Реєстрація ТОВ')">"Я усвідомлюю дію" Реєстрація ТОВ</div>
+                <div class="category-item" onclick="triggerOrchestrator('Я усвідомлюю дію','Електронний підпис')">"Я усвідомлюю дію" КЕП (Електронний підпис)</div>
+                <div class="category-item" onclick="triggerOrchestrator('Я усвідомлюю дію','КВЕД')">"Я усвідомлюю дію" КВЕД (Діяльність)</div>
+            </div>
+
+            <div class="framework-category">
+                <div class="category-title">⚙️ Блок: Процес</div>
+                <div class="category-item" onclick="triggerOrchestrator('Я усвідомлюю дію','Подання звітності')">"Я усвідомлюю дію" Звітність</div>
+                <div class="category-item" onclick="triggerOrchestrator('Я усвідомлюю дію','РРО/ПРРО')">"Я усвідомлюю дію" РРО/ПРРО</div>
+                <div class="category-item" onclick="triggerOrchestrator('Я усвідомлюю дію','Податковий календар')">"Я усвідомлюю дію" Календар</div>
+            </div>
+
+            <div class="framework-category">
+                <div class="category-title">💰 Блок: Податки</div>
+                <div class="category-item" onclick="triggerOrchestrator('Я усвідомлюю дію','ПДВ')">"Я усвідомлюю дію" ПДВ</div>
+                <div class="category-item" onclick="triggerOrchestrator('Я усвідомлюю дію','ПДФО')">"Я усвідомлюю дію" ПДФО</div>
+                <div class="category-item" onclick="triggerOrchestrator('Я усвідомлюю дію','Єдиний податок')">"Я усвідомлюю дію" Єдиний податок</div>
+            </div>
+
+            <div class="framework-category">
+                <div class="category-title">🛡️ Блок: Захист</div>
+                <div class="category-item" onclick="triggerOrchestrator('Я усвідомлюю дію','Податкова консультація')">"Я усвідомлюю дію" Консультація</div>
+                <div class="category-item" onclick="triggerOrchestrator('Я усвідомлюю дію','Оскарження рішень')">"Я усвідомлюю дію" Оскарження</div>
+            </div>
+        </div>
+    
+        <div id="popup"></div>
+    </div>
+
+    <script>
+        const editor = document.getElementById('editor');
+        const popup = document.getElementById('popup');
+        
+        let speechHasPlayed = false; // Маркер, щоб озвучка не дублювалася
+
+        function speakOrchestratorConcept() {
+            if (speechHasPlayed) return;
+            
+            // Скидаємо попередні сесії озвучки, щоб вони не накладалися
+            window.speechSynthesis.cancel();
+
+            const text = "Перед вами концепція Оркестратора знань та інтерфейсів швидкої дії. Кожне слово або термін у тексті є інтерактивним атомом сенсу. Клік на елемент тексту миттєво розгортає контекстні інструменти, локальні калькулятори чи автономні бази даних без використання зовнішніх апі підключень. Мета проєкту — масштабування з поточного лабораторного зразка до повноцінного автономного софт прототипу для оборонного сектору.";
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'uk-UA';
+            utterance.rate = 0.95;
+            
+            utterance.onend = () => { speechHasPlayed = true; };
+            utterance.onerror = () => { speechHasPlayed = true; };
+
+            window.speechSynthesis.speak(utterance);
+            speechHasPlayed = true;
+        }
+
+        // Автозапуск через 3 секунди після завантаження
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(speakOrchestratorConcept, 3000);
+        });
+
+        // Захист від блокування аудіо браузером: якщо не спрацювало автоматично, озвучить при першому кліку
+        document.addEventListener('click', () => {
+            speakOrchestratorConcept();
+        }, { once: true }); // Спрацює лише 1 раз
+
+        // База знань
+        const fakeKnowledgeBase = {
+            "маркетинг": [
+                { type: "info", content: "Маркетинг – це комплекс дій, спрямованих на просування продуктів/послуг та задоволення потребам споживачів." },
+                { type: "link", title: "Google Ads", url: "https://ads.google.com/", icon: "🌐" }
+            ],
+            "аналітика": [
+                { type: "info", content: "Аналітика даних – це процес вивчення даних для виявлення закономірностей та отримання інсайтів." },
+                { type: "link", title: "Google Analytics", url: "https://analytics.google.com/", icon: "📊" }
+            ],
+            "seo": [
+                { type: "info", content: "SEO (Search Engine Optimization) – це оптимізація сайту для підвищення його позицій у пошуку." },
+                { type: "link", title: "Google Search Console", url: "https://search.google.com/search-console/", icon: "🔍" }
+            ],
+            "картинка": [ 
+                { type: "info", content: "Візуальний контент для ілюстрацій, інформації чи натхнення." },
+                { type: "search_link", title: "Google Images", url: "https://www.google.com/search?tbm=isch&q=", icon: "🖼️" }
+            ],
+            "відео": [ 
+                { type: "info", content: "Динамічний контент для навчання, розваг та комунікації." },
+                { type: "search_link", title: "YouTube", url: "https://www.youtube.com/results?search_query=", icon: "▶️" }
+            ],
+            "курс долара": [
+                { type: "info", content: "Актуальний курс долара: 41.20 UAH." },
+                { type: "link", title: "Офіційний курс НБУ", url: "https://bank.gov.ua/ua/markets/exchangerates", icon: "🏦" }
+            ],
+            "час": [
+                { type: "info", content: "time_function" }
+            ],
+            "реєстрація фоп": [
+                { type: "info", content: "Початок підприємницької діяльності — швидкий старт для фізичних осіб." },
+                { type: "link", title: "Дія: Реєстрація ФОП", url: "https://diia.gov.ua/", icon: "🔗" }
+            ],
+            "реєстрація тов": [
+                { type: "info", content: "Створення юридичної особи — обмежена відповідальність засновників." },
+                { type: "link", title: "Процедура реєстрації ТОВ", url: "https://minjust.gov.ua/", icon: "🔗" }
+            ],
+            "банківський рахунок": [
+                { type: "info", content: "Відкриття розрахункового рахунку — легальне проведення операцій." },
+                { type: "link", title: "Вимоги НБУ", url: "https://bank.gov.ua/", icon: "🔗" }
+            ],
+            "електронний підпис": [
+                { type: "info", content: "Цифровий підпис (КЕП) — обов'язкова умова для взаємодії з ДПС." },
+                { type: "link", title: "Отримати КЕП", url: "https://czo.gov.ua/", icon: "🔗" }
+            ],
+            "вибір системи": [
+                { type: "info", content: "Визначення податкового режиму — оптимізація оподаткування." },
+                { type: "link", title: "Порівняння податкових систем", url: "https://tax.gov.ua/", icon: "🔗" }
+            ],
+            "квед": [
+                { type: "info", content: "КВЕД — код вашої діяльності. Від нього залежить право працювати на спрощеній системі." },
+                { type: "link", title: "Пошук кодів КВЕД", url: "https://kved.stat.gov.ua/", icon: "🔢" }
+            ],
+            "кеп": [
+                { type: "info", content:"КЕП — це цифровий підпис для засвідчення дій в офіційному полі."},
+                { type: "link", title:"Перевірка КЕП", url: "https://kep.stat.gov.ua/", icon: "🔢"}
+            ],
+            "подання звітності": [
+                { type: "info", content: "Своєчасне подання декларацій — виконання податкового обов'язку." },
+                { type: "link", title: "Графік звітності", url: "https://tax.gov.ua/", icon: "🔗" }
+            ],
+            "форми документів": [
+                { type: "info", content: "Первинні документи (накладні, акти) — підтвердження господарських операцій." },
+                { type: "link", title: "Вимоги до первинки", url: "https://zakon.rada.gov.ua/laws/show/2755-17#Text", icon: "🔗" }
+            ],
+            "рро/прро": [
+                { type: "info", content: "Застосування касового апарату — обов'язкова фіксація розрахунків." },
+                { type: "link", title: "Інструкції ДПС щодо ПРРО", url: "https://tax.gov.ua/", icon: "🔗" }
+            ],
+            "податковий календар": [
+                { type: "info", content: "Інструмент для контролю термінів — організація своєчасності." },
+                { type: "link", title: "Календар платника", url: "https://tax.gov.ua/calendar", icon: "🔗" }
+            ],
+            "податкова консультація": [
+                { type: "info", content: "Право на консультацію — індивідуальний захист від майбутніх штрафів." },
+                { type: "link", title: "Запит на ІПК", url: "https://tax.gov.ua/", icon: "🔗" }
+            ],
+            "оскарження рішень": [
+                { type: "info", content: "Право оскаржити рішення ДПС в адміністративному або судовому порядку." },
+                { type: "link", title: "Порядок оскарження", url: "https://tax.gov.ua/", icon: "🔗" }
+            ],
+            "пдфо": [
+                { type: "info", content: "Податок на доходи фізичних осіб (18% + військовий збір)." },
+                { type: "link", title: "Про ПДФО на сайті ДПС", url: "https://tax.gov.ua/", icon: "🔗" }
+            ],
+            "єсв": [
+                { type: "info", content: "Єдиний соціальний внесок для забезпечення пенсійного та соц. страхування." },
+                { type: "link", title: "Ставки ЄСВ", url: "https://tax.gov.ua/", icon: "🔗" }
+            ],
+            "податок на прибуток": [
+                { type: "info", content: "Стягується з фінансового прибутку підприємств на загальній системі." },
+                { type: "link", title: "Декларація з прибутку", url: "https://tax.gov.ua/", icon: "🔗" }
+            ],
+            "єдиний податок": [
+                { type: "info", content: "Спецрежим для малого бізнесу, що суттєво спрощує облік." },
+                { type: "link", title: "Групи та ліміти ЄП", url: "https://tax.gov.ua/", icon: "🔗" }
+            ],
+            "пдв": [
+                { type: "info", content: "Податок на додану вартість, непрямий податок, що включається в ціну товарів." },
+                { type: "link", title: "Електронне адміністрування ПДВ", url: "https://cabinet.tax.gov.ua/", icon: "🔗" }
+            ]
+        };
+
+        const freeTerms = ["маркетинг", "аналітика", "seo", "картинка", "відео", "час", "новини"];
+
+        function showPopup(x, y, contentHtml) {
+            popup.innerHTML = contentHtml;
+            popup.style.visibility = 'hidden'; 
+            popup.style.display = 'flex';
+            
+            const popupRect = popup.getBoundingClientRect(); 
+            let finalX = x;
+            let finalY = y + 15;
+
+            if (y + popupRect.height > window.innerHeight) {
+                finalY = y - popupRect.height - 5; 
+                if (finalY < 10) finalY = 10; 
+            }
+
+            if (x + popupRect.width > window.innerWidth) {
+                finalX = window.innerWidth - popupRect.width - 20;
+                if (finalX < 10) finalX = 10;
+            }
+
+            popup.style.left = `${finalX}px`;
+            popup.style.top = `${finalY}px`;
+            popup.style.visibility = 'visible';
+        }
+
+        function hidePopup() {
+            popup.style.display = 'none';
+            popup.style.visibility = 'hidden';
+        }
+
+        function triggerOrchestrator(actionPrefix, termName) {
+            const dbKey = termName.toLowerCase();
+            const data = fakeKnowledgeBase[dbKey];
+            
+            document.querySelectorAll('.category-item').forEach(item => {
+                if (item.textContent.toLowerCase().includes(dbKey)) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+
+            if (data) {
+                const html = createKnowledgeHtml(termName, data);
+                showPopup(window.innerWidth / 2 - 150, window.innerHeight / 4, html);
+            } else {
+                alert(`Дані для "${termName}" не знайдені.`);
+            }
+        }
+
+        function createKnowledgeHtml(dbKey, data) {
+            const isBasic = freeTerms.includes(dbKey.toLowerCase());
+            let itemsHtml = "";
+            
+            if (Array.isArray(data)) {
+                itemsHtml = data.map(item => {
+                    if (item.type === 'info') {
+                        if (item.content === "time_function") {
+                            const timeString = new Date().toLocaleTimeString('uk-UA', { timeZone: 'Europe/Kyiv' });
+                            return `<p style="margin: 0 0 8px 0; line-height:1.4;">Поточний час: <strong>${timeString}</strong>.</p>`;
+                        }
+                        return `<p style="margin: 0 0 8px 0; line-height:1.4;">${item.content}</p>`;
+                    }
+                    if (item.type === 'link' || item.type === 'search_link') {
+                        return `<a href="${item.url}" target="_blank" style="display:block; color:#0066cc; text-decoration:none; margin-bottom:5px; font-size:0.9em;">${item.icon || '🔗'} ${item.title}</a>`;
+                    }
+                    return "";
+                }).join("");
+            } else {
+                itemsHtml = `<p>${data}</p>`;
+            }
+
+            itemsHtml += `<hr style="border:0; border-top:1px solid #eee; margin:10px 0;">`;
+            itemsHtml += `<a href="https://gemini.google.com/chat?q=${encodeURIComponent('Розкажи детальніше про ' + dbKey)}" target="_blank" class="popup-action-button" style="font-size:0.85em; background:#e2f0ff; border-color:#007bff; color:#007bff; text-align:center; font-weight:bold;">✨ Запитати Gemini про "${dbKey}"</a>`;
+
+            const borderColor = isBasic ? "#4CAF50" : "#007bff";
+            const titleColor = isBasic ? "#2e7d32" : "#1a73e8";
+            const titlePrefix = isBasic ? "📖 Базові знання" : "🚀 Оркестратор";
+
+            return `
+                <div class="kb-container" style="padding:5px; border-left:4px solid ${borderColor}; width:100%; box-sizing:border-box;">
+                    <h4 style="margin:0 0 10px 0; color:${titleColor}; text-transform: uppercase; font-size:11px; letter-spacing:0.5px;">${titlePrefix}: ${dbKey}</h4>
+                    <div class="kb-content">${itemsHtml}</div>
+                    <button onclick="hidePopup()" style="margin-top:10px; width:100%; padding:5px; background:#f1f1f1; border:1px solid #ddd; border-radius:4px; cursor:pointer; font-size:11px;">Закрити</button>
+                </div>
+            `;
+        }
+
+        // Обробник виділення тексту
+        editor.addEventListener('mouseup', function(e) {
+            const selection = window.getSelection();
+            const selectedText = selection.toString().trim().toLowerCase();
+            
+            if (selectedText.length > 1) {
+                let foundKey = null;
+                for (let key in fakeKnowledgeBase) {
+                    if (key === selectedText || selectedText.includes(key) || key.includes(selectedText)) {
+                        foundKey = key;
+                        break;
+                    }
+                }
+
+                if (foundKey) {
+                    const range = selection.getRangeAt(0);
+                    const rect = range.getBoundingClientRect();
+                    const html = createKnowledgeHtml(foundKey, fakeKnowledgeBase[foundKey]);
+                    showPopup(rect.left + window.scrollX, rect.bottom + window.scrollY, html);
+                }
+            }
+        });
+
+        // Закриття попапу за межами елементів
+        document.addEventListener('mousedown', function(e) {
+            if (!popup.contains(e.target) && e.target !== editor && !e.target.classList.contains('category-item')) {
+                hidePopup();
+            }
+        });
+    </script>
+</body>
+</html>
